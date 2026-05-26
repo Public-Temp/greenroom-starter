@@ -10,6 +10,52 @@ This is the starter codebase for the Greenroom Applied AI PM case study.
 
 ---
 
+## Case Study Submission
+
+> **Prototype focus:** Settlement Readiness Risk Gate for the Coastal Spell dispute.
+
+This submission adds a readiness layer that helps Mariana decide whether a settlement is safe to move forward. The prototype calculates risk factors, shows the supporting evidence, and creates an explicit human approval moment: **Hold** or **Proceed**.
+
+### Preview
+
+Run the app, then open:
+
+| View | Route | What to look for |
+|---|---|---|
+| Show detail | `/shows/show_coastal_spell_dispute` | Full settlement-readiness panel before the standard deal details. |
+| Settlement workflow | `/shows/show_coastal_spell_dispute/settle` | Full readiness panel inside the settlement flow, including breakdown and Hold/Proceed gate. |
+
+### Case Report
+
+Read [`docs/CASE_REPORT.md`](docs/CASE_REPORT.md) for the product rationale, review path, implementation map, validation commands, and scope decisions.
+
+### Reviewer Guide
+
+Recommended review order:
+
+1. Open `/shows/show_coastal_spell_dispute` and review the Settlement readiness panel.
+2. Open the **Risk factor breakdown** to inspect evidence, scoring, owners, and required actions.
+3. Choose **Hold** or **Proceed** in the move-forward gate to see the audit preview behavior.
+4. Open `/shows/show_coastal_spell_dispute/settle` and confirm the same readiness context, breakdown, and Hold/Proceed decision remain visible inside settlement.
+5. Review the supporting docs and screenshots listed below.
+
+The review should focus on the case-study slice: a dynamic readiness score, visible risk/trust signals, sourceable evidence, owner actions, and a human-controlled Hold/Proceed decision before settlement moves forward.
+
+Additional review artifacts:
+
+- [`docs/PR_DESCRIPTION.md`](docs/PR_DESCRIPTION.md)
+- [`docs/PREVIEW_CAPTURE_GUIDE.md`](docs/PREVIEW_CAPTURE_GUIDE.md)
+- [`docs/SUBMISSION_CHECKLIST.md`](docs/SUBMISSION_CHECKLIST.md)
+- [`docs/previews/`](docs/previews/)
+
+Core implementation files:
+
+- `lib/settlementReadiness.ts`
+- `components/settlement/settlement-readiness-panel.tsx`
+- `scripts/check-settlement-readiness.ts`
+
+---
+
 You're looking at a working but mediocre product. It's enough to feel real, but every workflow has gaps. **Your job isn't to fix everything — it's to pick a slice and design it well.** See your case study brief for full instructions.
 
 ## Before you start
@@ -186,7 +232,7 @@ data/                       # Markdown context + greenroom.db
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS 4** with shadcn-style component primitives
 - **Drizzle ORM** + **libsql** (pure-JS SQLite — no native compile, no setup)
-- **Fraunces** (variable serif, via `next/font/google`) for display headings
+- **Georgia** fallback display serif for headings
 - **Geist Sans / Mono** (self-hosted via the `geist` package) for body + code
 - **lucide-react** for icons, **date-fns** for dates
 
