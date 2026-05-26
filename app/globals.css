@@ -3,7 +3,7 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-fraunces);
+  --font-display: Georgia, serif;
 
   --color-canvas: #faf7f0;
   --color-canvas-soft: #fdfbf6;
@@ -131,7 +131,7 @@ select:focus-visible {
 }
 
 .font-display {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: Georgia, serif;
 }
 
 .eyebrow {
