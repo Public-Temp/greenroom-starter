@@ -29,6 +29,12 @@ Run the app, then open:
 
 The preview images are committed in [`docs/previews/`](docs/previews/) and embedded here so reviewers can inspect the feature without hunting through the repository.
 
+### Video Walkthrough
+
+The captioned walkthrough video is committed here:
+
+[`docs/previews/greenroom_walkthrough_mabruk_sheikh.webm`](docs/previews/greenroom_walkthrough_mabruk_sheikh.webm)
+
 #### Show Detail - Full Readiness Panel
 
 ![Show detail page with settlement readiness panel](docs/previews/preview_show_detail.png)
