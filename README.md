@@ -25,6 +25,22 @@ Run the app, then open:
 | Show detail | `/shows/show_coastal_spell_dispute` | Full settlement-readiness panel before the standard deal details. |
 | Settlement workflow | `/shows/show_coastal_spell_dispute/settle` | Full readiness panel inside the settlement flow, including breakdown and Hold/Proceed gate. |
 
+### Preview Screenshots
+
+The preview images are committed in [`docs/previews/`](docs/previews/) and embedded here so reviewers can inspect the feature without hunting through the repository.
+
+#### Show Detail - Full Readiness Panel
+
+![Show detail page with settlement readiness panel](docs/previews/preview_show_detail.png)
+
+#### Settlement Page - Full Readiness Panel
+
+![Settlement page with readiness breakdown and Hold/Proceed gate](docs/previews/preview_settlement_page.png)
+
+#### Gate Created State
+
+![Move-forward gate audit preview after selecting Hold](docs/previews/preview_gate_created.png)
+
 ### Case Report
 
 Read [`docs/CASE_REPORT.md`](docs/CASE_REPORT.md) for the product rationale, review path, implementation map, validation commands, and scope decisions.
