@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/card";
 import { StatusBadge, DealTypeBadge, PlainBadge } from "@/components/ui/badge";
 import { calculateSettlement } from "@/lib/dealMath";
+import { getSettlementReadiness } from "@/lib/settlementReadiness";
+import { SettlementReadinessPanel } from "@/components/settlement/settlement-readiness-panel";
 import {
   formatMoney,
   formatShowDateFull,
@@ -48,7 +50,7 @@ export default async function SettlePage({
   const data = await getShowById(id);
   if (!data) notFound();
 
-  const { show, artist, deal, ticketSales, expenses, settlement, recoups } =
+  const { show, artist, agent, agency, deal, ticketSales, expenses, settlement, recoups, comps } =
     data;
 
   if (!deal) {
@@ -77,6 +79,16 @@ export default async function SettlePage({
   const disputedRecoups = recoups.filter((r) => r.status === "disputed");
   const isDisputed = settlement?.status === "disputed" || settlement?.status === "revised" || !!settlement?.disputedAt;
   const disputedRecoupValue = disputedRecoups.reduce((s, r) => s + r.amount, 0);
+  const readiness = getSettlementReadiness({
+    show,
+    agent,
+    agency,
+    deal,
+    settlement,
+    expenses,
+    comps,
+    recoups,
+  });
 
   return (
     <div className={`px-12 py-10 max-w-7xl ${isDisputed ? "bg-gradient-to-b from-rose-50/30 via-canvas to-canvas" : ""}`}>
@@ -125,6 +137,10 @@ export default async function SettlePage({
       {settlement && (
         <LifecycleBar settlement={settlement} disputedRecoups={disputedRecoups.length} />
       )}
+
+      <div className="mt-6">
+        <SettlementReadinessPanel readiness={readiness} />
+      </div>
 
       <div className="space-y-6 mt-6">
         {!calc.supported ? (

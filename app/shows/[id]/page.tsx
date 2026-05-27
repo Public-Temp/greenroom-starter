@@ -19,6 +19,8 @@ import {
 import { StatusBadge, DealTypeBadge, PlainBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { parseBonuses } from "@/lib/dealMath";
+import { getSettlementReadiness } from "@/lib/settlementReadiness";
+import { SettlementReadinessPanel } from "@/components/settlement/settlement-readiness-panel";
 import {
   formatMoney,
   formatMoneyCompact,
@@ -56,6 +58,7 @@ export default async function ShowDetailPage({
     ticketSales,
     expenses,
     comps,
+    recoups,
   } = data;
 
   const grossSoFar = ticketSales.reduce((sum, t) => sum + t.gross, 0);
@@ -76,6 +79,16 @@ export default async function ShowDetailPage({
   const bonuses = deal ? parseBonuses(deal) : [];
 
   const isDisputed = settlement?.status === "disputed";
+  const readiness = getSettlementReadiness({
+    show,
+    agent,
+    agency,
+    deal,
+    settlement,
+    expenses,
+    comps,
+    recoups,
+  });
 
   return (
     <div className="max-w-7xl">
@@ -152,6 +165,8 @@ export default async function ShowDetailPage({
             </div>
           </div>
         )}
+
+        <SettlementReadinessPanel readiness={readiness} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-2">
           {/* Deal terms */}

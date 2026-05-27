@@ -36,26 +36,26 @@ export function CommandPalette({ shows, artists }: Props) {
   const listRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // Toggle on Cmd/Ctrl+K
+  // Toggle on Cmd/Ctrl+K. Reset query when opening so effects only sync focus.
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
+        if (!open) {
+          setQuery("");
+          setActiveIndex(0);
+        }
         setOpen((prev) => !prev);
       }
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [open]);
 
-  // Focus input when opened, reset state
+  // Focus input when opened.
   useEffect(() => {
-    if (open) {
-      setQuery("");
-      setActiveIndex(0);
-      // Small delay so the element is mounted before focusing
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }
+    if (!open) return;
+    requestAnimationFrame(() => inputRef.current?.focus());
   }, [open]);
 
   // Filter results
@@ -75,11 +75,6 @@ export function CommandPalette({ shows, artists }: Props) {
 
     return [...matchedShows, ...matchedArtists];
   }, [query, shows, artists]);
-
-  // Reset active index when results change
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [results]);
 
   // Navigate to a result
   const navigate = useCallback(
@@ -167,7 +162,10 @@ export function CommandPalette({ shows, artists }: Props) {
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setActiveIndex(0);
+            }}
             placeholder="Search shows and artists..."
             className={cn(
               "flex-1 h-12 text-[16px] text-ink-900 placeholder:text-ink-400",
